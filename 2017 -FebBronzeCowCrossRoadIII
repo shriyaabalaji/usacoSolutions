@@ -1,0 +1,56 @@
+import java.io.FileNotFoundException;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.PrintWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.lang.Character;
+import java.util.Collections;
+
+class Main {
+  static int minTime = 0;
+  public static void main(String[] args) throws FileNotFoundException, IOException{
+    BufferedReader input = new BufferedReader(new FileReader("cowqueue.in"));
+    PrintWriter output = new PrintWriter("cowqueue.out");
+    ArrayList<Integer> arriveTime = new ArrayList<Integer>();
+    ArrayList<Integer> sortedArriveTime = new ArrayList<Integer>();
+    ArrayList<Integer> questioningTime = new ArrayList<Integer>();
+    ArrayList<Integer> sortedQuestioningTime = new ArrayList<Integer>();
+
+    //Read input
+    int n = Integer.parseInt(input.readLine());
+
+    for(int i = 0; i < n; i++) {
+      String x = input.readLine();
+      int index = x.indexOf(" ");
+      int k = Integer.parseInt(x.substring(0, index));
+      int v = Integer.parseInt(x.substring(index + 1));
+      arriveTime.add(k);
+      sortedArriveTime.add(k);
+      questioningTime.add(v);
+    }
+
+    Collections.copy(sortedArriveTime, arriveTime);
+    Collections.sort(sortedArriveTime);
+
+    for(int i = 0; i < n; i++) {
+      int k = sortedArriveTime.get(i);
+      int index = arriveTime.indexOf(k);
+      int v = questioningTime.get(index);
+      sortedQuestioningTime.add(v);
+    }
+
+    minTime = sortedArriveTime.get(0) + sortedQuestioningTime.get(0);
+
+    for(int i = 1; i < n; i++){
+      if(sortedArriveTime.get(i) >= minTime) {
+        minTime = sortedArriveTime.get(i);
+      }
+      minTime += sortedQuestioningTime.get(i);
+    }
+
+    output.println(minTime);
+    input.close();
+    output.close();
+  }
+}
