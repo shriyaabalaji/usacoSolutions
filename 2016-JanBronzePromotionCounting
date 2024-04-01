@@ -1,0 +1,42 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.PrintWriter;
+import java.util.StringTokenizer;
+
+class Main {
+  public static void main(String[] args) throws FileNotFoundException, IOException{
+    BufferedReader input = new BufferedReader(new FileReader("promote.in"));
+    PrintWriter output = new PrintWriter("promote.out");
+    //StringTokenizer input = new StringTokenizer("this is a test");
+
+    StringTokenizer bronze = new StringTokenizer(input.readLine());
+    int bronzeBefore = Integer.parseInt(bronze.nextToken());
+    int bronzeAfter = Integer.parseInt(bronze.nextToken());
+
+    StringTokenizer silver = new StringTokenizer(input.readLine());
+    int silverBefore = Integer.parseInt(silver.nextToken());
+    int silverAfter = Integer.parseInt(silver.nextToken());
+
+    StringTokenizer gold = new StringTokenizer(input.readLine());
+    int goldBefore = Integer.parseInt(gold.nextToken());
+    int goldAfter = Integer.parseInt(gold.nextToken());
+
+    StringTokenizer plat = new StringTokenizer(input.readLine());
+    int platBefore = Integer.parseInt(plat.nextToken());
+    int platAfter = Integer.parseInt(plat.nextToken());
+
+    int platDiff = platAfter - platBefore;
+    int goldDiff = platDiff + (goldAfter - goldBefore);
+    int silverDiff = goldDiff + (silverAfter - silverBefore);
+
+    output.println(silverDiff);
+    output.println(goldDiff);
+    output.println(platDiff);
+
+    input.close();
+    output.close();
+  }
+}
